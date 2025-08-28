@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTFOLIO MK CREATOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0078d7;
+            --dark: #222;
+            --light: #f4f4f4;
+            --white: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            color: var(--dark);
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            background: linear-gradient(120deg, #000000 0%, #0C00ff 40%, #00000f 100%);
+            background-size: 200% 200%;
+            opacity: 0.8;
+            animation: gradientMove 8s ease-in-out infinite alternate;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 30%, #fff3 0%, #fff0 60%),
+                radial-gradient(circle at 80% 70%, #0078d733 0%, #0078d700 60%),
+                radial-gradient(circle at 50% 80%, #00c3ff33 0%, #00c3ff00 60%);
+            mix-blend-mode: lighten;
+        }
+        main, header, nav, section, footer {
+            position: relative;
+            z-index: 1;
+        }
+        header {
+            background: none;
+            color: var(--white);
+            padding: 60px 0 40px 0;
+            text-align: center;
+            text-shadow: 0 2px 16px #0078d7cc, 0 0px 2px #2228;
+        }
+        header h1 {
+            font-size: 3em;
+            margin: 0 0 12px 0;
+            letter-spacing: 3px;
+            font-weight: 800;
+        }
+        header p {
+            font-size: 1.4em;
+            margin: 0;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05em;
+            transition: color 0.2s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary);
+            background: #eaf4ff;
+        }
+        section {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 35px 25px;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 2em;
+        }
+        h3 {
+            color: var(--dark);
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .gallery {
+            column-count: 4;
+            column-gap: 1.2rem;
+            margin-top: 20px;
+        }
+        @media (max-width: 1200px) {
+            .gallery { column-count: 3; }
+        }
+        @media (max-width: 900px) {
+            .gallery { column-count: 2; }
+        }
+        @media (max-width: 600px) {
+            .gallery { column-count: 1; }
+        }
+
+        .gallery-item {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 1.2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+            background: #fff;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        .gallery img, .gallery video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .media-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            font-size: 1em;
+        }
+        .gallery-item:hover .media-description {
+            transform: translateY(0);
+        }
+        .contact-info {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        .social-links {
+            margin-top: 18px;
+            display: flex;
+            gap: 18px;
+        }
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.7em;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: var(--dark);
+        }
+        .contact-form {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+        }
+        .contact-form input, .contact-form textarea, .contact-form button {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+        .contact-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .contact-form button:hover {
+            background-color: #0066b8;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--dark);
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-top: 40px;
+        }
+        .l{
+            display: block;
+            margin: 30px auto 0 auto;
+            max-width: 100px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MK CREATOR</h1>
+        <p>Portfolio Design Graphique & Montage Vidéo</p>
+    </header>
+    <nav>
+        <a href="#about">À propos</a>
+        <a href="#Projects">Nos projets</a>
+        <a href="#graphic">Graphiques</a>
+        <a href="#video">Vidéos</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="about">
+            <h2>À propos</h2>
+            <p>
+                Je suis MK Creator, passionné par la créativité visuelle et la narration.
+                J'accompagne entreprises et particuliers dans la réalisation d'identités graphiques, affiches, vidéos promotionnelles et contenus créatifs.
+                Mon objectif : donner vie à vos idées avec professionnalisme et originalité.
+            </p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/mk.creator01?igsh=NjBzZDl1cHI1cTh2" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://whatsapp.com/channel/0029Vb5tj0yHbFVFW17yqD2S" target="_blank" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://linkedin.com/in/mk-creator-621111381" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://youtube.com/@mkcreator-mk?si=NyPCMAJkujEMmk8Z" target="_blank" title="Youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </section>
+        <section id="Projects">
+            <h2>Nos projets</h2>
+            <p>Les projets MK CREATOR reposent actuellement sur la création de logo de tout genre, la création de contenu visuels et le montage de vidéos (story instagram, événementiel, etc...).</p>
+        </section>
+        <section id="graphic">
+            <h2>Graphiques</h2>
+            <h3>Logo et contenus visuels</h3><br>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="LOGO MK_CREATOR NOIR.png" alt="Logo MK Creator">
+                </div>
+                <div class="gallery-item">
+                    <img src="Nikè Fashion.png" alt="Logo Nikè Fashion">
+                </div>
+                <div class="gallery-item">
+                    <img src="Flairgrance.png" alt="Logo Flairgrance">
+                </div>
+                <div class="gallery-item">
+                    <img src="Ford's servives.png" alt="Logo Ford's services">
+                </div>
+                <div class="gallery-item">
+                    <img src="Flyer Promotion Mise a jour.jpg" alt="Affiche Promotion">
+                </div>
+                <div class="gallery-item">
+                    <img src="BADA CRATIVE FLYERS.jpg" alt="Kevin">
+                </div>
+                <div class="gallery-item">
+                    <img src="KOUDOHA CREATIVE FLYERS.jpg" alt="Ozias">
+                </div>
+                <div class="gallery-item">
+                    <img src="Flyers_Ascension_PREFERE_PLUS.jpg" alt="Affiche pub Ascension">
+                </div>
+                <div class="gallery-item">
+                    <img src="Reflet.jpg" alt="Reflet de mode">
+                </div>
+                <div class="gallery-item">
+                    <img src="ford.jpg" alt="Affiche ford">
+                </div>
+                <div class="gallery-item">
+                    <img src="Final Announcement flyers 2.jpg" alt="Final basketball">
+                </div>
+                <div class="gallery-item">
+                    <img src="Dunk Game Flyers.jpg" alt="Final basketball">
+                </div>
+                <div class="gallery-item">
+                    <img src="Baslketball Game Flyers 1.jpg" alt="Final basketball">
+                </div>
+                <div class="gallery-item">
+                    <img src="Planning Flyers.jpg" alt="Final basketball">
+                </div>
+                <div class="gallery-item">
+                    <img src="money.jpg" alt="Affiche money">
+                </div>
+                <div class="gallery-item">
+                    <img src="Flairgrance.jpg" alt="Affiche pub Flairgrance">
+                </div>
+                <div class="gallery-item">
+                    <img src="lundi.jpg" alt="Affiche lundi">
+                </div>
+                <div class="gallery-item">
+                    <img src="nike.jpg" alt="Affiche nike">
+                </div>
+                <div class="gallery-item">
+                    <img src="client.jpg" alt="Affiche client">
+                </div>
+                <div class="gallery-item">
+                    <img src="god.jpg" alt="Affiche god">
+                </div>
+                <div class="gallery-item">
+                    <img src="igname.jpg" alt="Affiche igname">
+                </div>
+                <div class="gallery-item">
+                    <img src="femi.jpg" alt="Affiche femi">
+                </div>
+                <div class="gallery-item">
+                    <img src="Show Times BBU.jpg" alt="Affiche Show Times BBU">
+                </div>
+                <div class="gallery-item">
+                    <img src="Reflets_flyers.jpg" alt="Affiche Reflets">
+                </div>
+                <div class="gallery-item">
+                    <img src="Citation1.jpg" alt="Affiche Citation1">
+                </div>
+                <div class="gallery-item">
+                    <img src="Basketball Games Flyers.jpg" alt="Affiche Basketball Games">
+                </div>
+                <div class="gallery-item">
+                    <img src="ticket.jpg" alt="Affiche ticket">
+                </div>
+                <div class="gallery-item">
+                    <img src="Assomption.jpg" alt="Affiche Assomption">
+                </div>
+                <div class="gallery-item">
+                    <img src="tournois1.jpg" alt="Affiche tournois1">
+                </div>
+                <div class="gallery-item">
+                    <img src="Citation2.jpg" alt="Affiche Citation2">
+                </div>
+                <div class="gallery-item">
+                    <img src="tournois2.jpg" alt="Affiche tournois2">
+                </div>
+                <div class="gallery-item">
+                    <img src="casting.jpg" alt="Affiche casting">
+                </div>
+                <div class="gallery-item">
+                    <img src="father.jpg" alt="Affiche father">
+                </div>
+                <div class="gallery-item">
+                    <img src="Citation4.jpg" alt="Affiche Citation4">
+                </div>
+                <div class="gallery-item">
+                    <img src="prefere plus.jpg" alt="Affiche prefere plus">
+                </div>
+                <div class="gallery-item">
+                    <img src="promo2.jpg" alt="Affiche promo2">
+                </div>
+                <div class="gallery-item">
+                    <img src="prospectus.jpg" alt="Affiche prospectus">
+                </div>
+                <div class="gallery-item">
+                    <img src="prospectus dpe.jpg" alt="Affiche prospectus dpe">
+                </div>
+                <div class="gallery-item">
+                    <img src="Tania1.jpg" alt="Affiche Tania1">
+                </div>
+                <div class="gallery-item">
+                    <img src="sedjlo.jpg" alt="Affiche sedjlo">
+                </div>
+                <div class="gallery-item">
+                    <img src="tabaski.jpg" alt="Affiche tabaski">
+                </div>
+                <div class="gallery-item">
+                    <img src="week.jpg" alt="Affiche week">
+                </div>
+                <div class="gallery-item">
+                    <img src="Goal.jpg" alt="Affiche Goal">
+                </div>
+                <div class="gallery-item">
+                    <img src="Fete_des_meres.jpg" alt="Affiche Fete des meres">
+                </div>
+                <div class="gallery-item">
+                    <img src="Flairgrance11.jpg" alt="Affiche Flairgrance11">
+                </div>
+            </div>
+        </section>
+        <section id="video">
+            <h2>Vidéos</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <video controls poster="https://via.placeholder.com/300x200/0078d7/ffffff?text=Video+1">
+                        <source src="Cotonou.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="gallery-item">
+                    <video controls poster="https://via.placeholder.com/300x200/00c3ff/ffffff?text=Video+2">
+                        <source src="Falirgance.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="gallery-item">
+                    <video controls poster="https://via.placeholder.com/300x200/0078d7/ffffff?text=Video+3">
+                        <source src="nike fleur.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="gallery-item">
+                    <video controls poster="https://via.placeholder.com/300x200/0078d7/ffffff?text=Video+3">
+                        <source src="Recap.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Nous contacter</h2>
+            <div class="contact-info">
+                <p>Email : <a href="mailto:mkcreator01@gmail.com">mkcreator01@gmail.com</a></p>
+                <p>Téléphone :+(229) 0151018074/0190096465</p>
+            </div>
+            <!-- Formulaire intégré avec Formspree -->
+            <form class="contact-form" action="https://formspree.io/f/mdklkjqa" method="POST">
+                <input type="text" name="name" placeholder="Votre nom" required>
+                <input type="email" name="email" placeholder="Votre email" required>
+                <textarea name="message" rows="4" placeholder="Votre message" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+            <div class="social-links">
+                <a href="https://instagram.com/mkcreator" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://whatsapp.com/channel/0029Vb5tj0yHbFVFW17yqD2S" target="_blank" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://linkedin.com/in/mk-creator-621111381" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://youtube.com/@mkcreator-mk?si=NyPCMAJkujEMmk8Z" target="_blank" title="Youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <img class="l" src="LOGO MK_CREATOR NOIR.png" alt="">
+        &copy; 2024 MK Creator. Tous droits réservés.
+    </footer>
+</body>
+</html>
